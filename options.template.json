@@ -2,11 +2,11 @@
   {
     "Namespace": "aws:elasticbeanstalk:application:environment",
     "OptionName": "APP_VERSION",
-    "Value": "1.0.9z"
+    "Value": "APP_VERSION_VALUE"
   },
   {
     "Namespace": "aws:elasticbeanstalk:application:environment",
     "OptionName": "APP_NAME",
-    "Value": "python-flask-mock-rest-apiz"
+    "Value": "APP_NAME_VALUE"
   }
 ]
