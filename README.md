@@ -1,7 +1,9 @@
 # python-flask-mock-rest-api
 Mock Rest API implemented in python (with flask) and deployable to AWS Elastic Beanstalk.
 
-# this readme doc is still in progress - 11/15/18
+If you're looking for a simple Flask / Elastic Beanstalk example check out [eb-python-flask](https://github.com/aws-samples/eb-python-flask).
+
+# the code & readme doc is still in progress - 11/15/18
 
 ## Overview
 
