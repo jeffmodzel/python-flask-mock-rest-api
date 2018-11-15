@@ -1,0 +1,12 @@
+[
+  {
+    "Namespace": "aws:elasticbeanstalk:application:environment",
+    "OptionName": "APP_VERSION",
+    "Value": "1.2.3"
+  },
+  {
+    "Namespace": "aws:elasticbeanstalk:application:environment",
+    "OptionName": "SOME_OTHER",
+    "Value": "8"
+  }
+]

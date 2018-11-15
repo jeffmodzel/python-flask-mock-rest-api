@@ -2,12 +2,12 @@ from flask import Flask, request
 import os
 
 application = Flask(__name__)
-app_version = os.environ.get('APP_VERSION')
+app_version = os.environ.get('APP_VERSION','?.?.?')
 
 @application.route('/')
 def hello_world():
     print('hit the base url')
-    return 'Hello, World!'
+    return 'Hello, World! ' + app_version
 
 @application.route('/api/<resource>')
 def show_user_profile(resource):
