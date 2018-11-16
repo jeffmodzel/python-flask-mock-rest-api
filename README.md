@@ -61,10 +61,28 @@ We could run this project and load up our mock server with resources by POSTing 
 
 
 ## Install
+The initial development was done in Python 3.5 and there are only two dependencies. Pytest is not really required unless you want to run the tests.
 
-only two dependencies - flask and pytest
+```
+pip3 install Flask
+pip3 install pytest
+```
 
-run locally like ...
+To run locally, execute the *run_local.sh* script:
+```
+export RUN_LOCAL=True
+export APP_VERSION=1.0.0
+export APP_NAME=python-flask-mock-rest-api
+python3 application.p
+```
+Which just sets up some environment variables the code is looking for. To run the unit tests simply run:
+```
+pytest
+```
+There are different ways to structure a Flask project and many guides on best practices. This project was setup to be as easy as possible to deploy to Elastic Beanstalk.
+
+More info on Flask and Pytest can be found:
+links here
 
 ## Details
 
