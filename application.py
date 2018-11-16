@@ -17,12 +17,7 @@ def hello_world():
     print('hit the base url')
     return 'Mock Rest API' + VERSION
 
-@application.route('/api/<resource>')
-def show_user_profile(resource):
-    print(request)
-    return 'Resource %s' % resource
-
-@application.route('/health')
+@application.route('/health',methods=['GET'])
 def health():
     try:
         delta = datetime.now() - SERVER_START
@@ -30,13 +25,7 @@ def health():
         hours, remainder = divmod(total_seconds,60*60)
         minutes, seconds = divmod(remainder,60)
         uptime = '{} hrs {} mins {} secs'.format(hours,minutes,seconds)
-
-        data = {
-            'name' : NAME,
-            'version' : VERSION,
-            'uptime' : uptime,
-            'database' : routes.db.status()
-            }
+        data = {'name' : NAME,'version' : VERSION,'uptime' : uptime,'database' : routes.db.status()}
         return jsonify(data)
     except Exception as e:
         print(e)

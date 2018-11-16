@@ -7,4 +7,5 @@ then
   rm $ZIP_FILE
 fi
 
-zip -r $ZIP_FILE . -x .gitignore *.git* *.sh *.zip
+# Remove files that aren't related to python application, keep our zip small
+zip -r $ZIP_FILE . -x .gitignore *.git* *.sh *.zip *_pycache_* *.pytest_cache* *.json *.md

@@ -1,11 +1,64 @@
+# *code & readme is still in progress - 11/16/18*
+
 # python-flask-mock-rest-api
-Mock Rest API implemented in python (with flask) and deployable to AWS Elastic Beanstalk.
+Mock Rest API implemented in Python (with Flask) and deployable to AWS Elastic Beanstalk.
 
 If you're looking for a simple Flask / Elastic Beanstalk example check out [eb-python-flask](https://github.com/aws-samples/eb-python-flask).
 
-# the code & readme doc is still in progress - 11/15/18
-
 ## Overview
+
+Exposes a REST endpoint in the form of **api/{resource}** that accepts GET/POST/PUT/DEL and allows dynamic creation of resources. The REST endpoints available are:
+
+* GET api/{resource}
+* GET api/{resource}/{id}
+* POST api/{resource}
+* PUT api/{resource}/{id}
+* DEL api/{resource}/{id}
+* GET /health
+
+For example if you wanted to create a person resource, you would call:
+```
+ POST api/person
+ {"first_name": "Darth", "last_name": "Vader"}
+
+ Returns 200
+ {"first_name": "Darth", "last_name": "Vader", "id" : "9a02bcdc-439f-4726-9d80-8e15979ead18"}
+```
+When a resource is created (on POST) it is automatically assigned a UUID id. That id is then used to retrieve the resource like:
+```
+ GET api/person/9a02bcdc-439f-4726-9d80-8e15979ead18
+
+ Returns 200
+ {"first_name": "Darth", "last_name": "Vader", "id" : "9a02bcdc-439f-4726-9d80-8e15979ead18"}
+```
+Or remove the resource like:
+```
+ DEL api/person/9a02bcdc-439f-4726-9d80-8e15979ead18
+
+ Returns 200
+ {"first_name": "Darth", "last_name": "Vader", "id" : "9a02bcdc-439f-4726-9d80-8e15979ead18"}
+```
+All operations GET/POST/PUT/DEL on a resource echo back the resource in the response, not just GETs.
+
+## Use Case
+The motivation behind this project was mocking the behavior of an ERP system REST API. When writing software that integrates different software systems, it can be difficult if not impossible to have those software systems available during all phases of software development.  Especially when those different systems are large ERPs. This project is one way to mitigate that issue by creating a generic REST API that can serve as a mock for a large software system.
+
+For example, let's say we're writing software that has to integrate with a large Human Resource system that exposes a REST API. During local development it may not be practical to have your own copy of that Human Resource system. Instead we would use a mock REST API to provide the functionality we expect. The HR system might have an API that exposes these types of resources:
+
+* Employees
+* Performance Reviews
+* Timesheets
+* Paychecks
+
+And the REST API might look something like:
+
+* http://hr-server/api/employees
+* http://hr-server/api/performance-reviews
+* http://hr-server/api/timesheets
+* http://hr-server/api/paychecks
+
+We could run this project and load up our mock server with resources by POSTing employees/performance-reviews/timesheets/paychecks. More....
+
 
 ## Install
 
@@ -43,3 +96,4 @@ deployment is driven by the app version in the shell script
 
 add postman subscriptions
 update /root UI
+add logger?
