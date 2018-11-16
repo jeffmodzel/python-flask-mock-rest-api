@@ -40,3 +40,6 @@ build assumes you have zip installed in your command line environment. link to z
 
 deployment takes a couple minutes
 deployment is driven by the app version in the shell script
+
+add postman subscriptions
+update /root UI

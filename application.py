@@ -34,8 +34,8 @@ def health():
         data = {
             'name' : NAME,
             'version' : VERSION,
-            'uptime' : uptime
-        #    'database' : db.status()
+            'uptime' : uptime,
+            'database' : routes.db.status()
             }
         return jsonify(data)
     except Exception as e:
