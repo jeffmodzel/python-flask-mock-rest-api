@@ -115,3 +115,7 @@ deployment is driven by the app version in the shell script
 add postman subscriptions
 update /root UI
 add logger?
+
+
+no business logic, can create multiple people with same name (they get different ids)
+possibly add a query param thing for searching

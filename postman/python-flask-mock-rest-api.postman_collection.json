@@ -1,0 +1,191 @@
+{
+	"info": {
+		"_postman_id": "66da51b9-11a9-406a-8c74-aa4447aaa55e",
+		"name": "python-flask-mock-rest-api",
+		"description": "Postman collection for the python-flask-mock-rest-api project.\n\nhttps://github.com/jeffmodzel/python-flask-mock-rest-api",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Health check",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{base_url_local}}/health",
+					"protocol": "http",
+					"host": [
+						"{{base_url_local}}"
+					],
+					"path": [
+						"health"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create a person",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"first_name\" : \"John\",\n\t\"last_name\" : \"Smith\",\n\t\"age\" : 24\n}"
+				},
+				"url": {
+					"raw": "http://{{base_url_local}}/api/persons",
+					"protocol": "http",
+					"host": [
+						"{{base_url_local}}"
+					],
+					"path": [
+						"api",
+						"persons"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all persons",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"first_name\" : \"John\",\n\t\"last_name\" : \"Smith\",\n\t\"age\" : 24\n}"
+				},
+				"url": {
+					"raw": "http://{{base_url_local}}/api/persons",
+					"protocol": "http",
+					"host": [
+						"{{base_url_local}}"
+					],
+					"path": [
+						"api",
+						"persons"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get a person",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"first_name\" : \"John\",\n\t\"last_name\" : \"Smith\",\n\t\"age\" : 24\n}"
+				},
+				"url": {
+					"raw": "http://{{base_url_local}}/api/persons/53a9b60d-93b3-4d47-828d-1cab0548646f",
+					"protocol": "http",
+					"host": [
+						"{{base_url_local}}"
+					],
+					"path": [
+						"api",
+						"persons",
+						"53a9b60d-93b3-4d47-828d-1cab0548646f"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Remove a person",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"first_name\" : \"John\",\n\t\"last_name\" : \"Smith\",\n\t\"age\" : 24\n}"
+				},
+				"url": {
+					"raw": "http://{{base_url_local}}/api/persons/53a9b60d-93b3-4d47-828d-1cab0548646f",
+					"protocol": "http",
+					"host": [
+						"{{base_url_local}}"
+					],
+					"path": [
+						"api",
+						"persons",
+						"53a9b60d-93b3-4d47-828d-1cab0548646f"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update a person",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"first_name\" : \"John\",\n\t\"last_name\" : \"Smith\",\n\t\"age\" : 24,\n\t\"address\" : \"10 Main Street\"\n}"
+				},
+				"url": {
+					"raw": "http://{{base_url_local}}/api/persons/d92eb6cb-2780-42d1-8a48-e95ab610b3e1",
+					"protocol": "http",
+					"host": [
+						"{{base_url_local}}"
+					],
+					"path": [
+						"api",
+						"persons",
+						"d92eb6cb-2780-42d1-8a48-e95ab610b3e1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
