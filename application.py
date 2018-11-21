@@ -12,8 +12,8 @@ application = Flask(__name__)
 import routes
 application.register_blueprint(routes.bp)
 
-@application.route('/')
-def hello_world():
+@application.route('/',methods=['GET'])
+def index():
     print('hit the base url')
     return 'Mock Rest API' + VERSION
 

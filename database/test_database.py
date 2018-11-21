@@ -19,21 +19,21 @@ def test_basic_crud():
 
     # add a new resource
     added_resource = db.add('dog',dog)
-    assert 'id' in added_resource
+    assert '_id' in added_resource
 
-    id = added_resource['id']
+    id = added_resource['_id']
 
     # get added resource
     get_resource = db.get_one('dog',id)
     assert get_resource is not None
-    assert get_resource['id'] == id
+    assert get_resource['_id'] == id
     assert get_resource['name'] == name
 
     # update resource with new field
     get_resource['new_field'] = new_field
     updated_resource = db.update('dog',id,get_resource)
     assert updated_resource is not None
-    assert updated_resource['id'] == id
+    assert updated_resource['_id'] == id
     assert updated_resource['name'] == name
     assert updated_resource['new_field'] == new_field
 
@@ -41,14 +41,14 @@ def test_basic_crud():
     del updated_resource['new_field']
     updated_resource = db.update('dog',id,updated_resource)
     assert updated_resource is not None
-    assert updated_resource['id'] == id
+    assert updated_resource['_id'] == id
     assert updated_resource['name'] == name
     assert 'new_field' not in updated_resource
 
     # remove resource
     deleted_resource = db.remove('dog',id)
     assert deleted_resource is not None
-    assert deleted_resource['id'] == id
+    assert deleted_resource['_id'] == id
     assert deleted_resource['name'] == name
     assert 'new_field' not in deleted_resource
 
@@ -81,7 +81,7 @@ def test_load():
     for i in range(number_of_resources_to_create):
         x = db.add('dog', {'name' : 'Stella' + str(i)})
         assert x is not None
-        ids_to_delete.append(x['id'])
+        ids_to_delete.append(x['_id'])
 
     assert db.status()['total_count'] == number_of_resources_to_create
 

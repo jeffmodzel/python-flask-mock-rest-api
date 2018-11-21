@@ -20,21 +20,21 @@ For example if you wanted to create a person resource, you would call:
  {"first_name": "Darth", "last_name": "Vader"}
 
  Returns 200
- {"first_name": "Darth", "last_name": "Vader", "id" : "9a02bcdc-439f-4726-9d80-8e15979ead18"}
+ {"first_name": "Darth", "last_name": "Vader", "_id" : "9a02bcdc-439f-4726-9d80-8e15979ead18"}
 ```
 When a resource is created (on POST) it is automatically assigned a UUID id. That id is then used to retrieve the resource like:
 ```
  GET api/person/9a02bcdc-439f-4726-9d80-8e15979ead18
 
  Returns 200
- {"first_name": "Darth", "last_name": "Vader", "id" : "9a02bcdc-439f-4726-9d80-8e15979ead18"}
+ {"first_name": "Darth", "last_name": "Vader", "_id" : "9a02bcdc-439f-4726-9d80-8e15979ead18"}
 ```
 Or remove the resource like:
 ```
  DEL api/person/9a02bcdc-439f-4726-9d80-8e15979ead18
 
  Returns 200
- {"first_name": "Darth", "last_name": "Vader", "id" : "9a02bcdc-439f-4726-9d80-8e15979ead18"}
+ {"first_name": "Darth", "last_name": "Vader", "_id" : "9a02bcdc-439f-4726-9d80-8e15979ead18"}
 ```
 All operations GET/POST/PUT/DEL on a resource echo back the resource in the response, not just GETs.
 
@@ -59,10 +59,10 @@ And the REST API might look something like:
 
 We could run this project (locally or hosted somewhere like AWS) and load up our mock server with data by POST-ing employees, performance-reviews, timesheets and paychecks resources. Then we could work on our software and run against:
 
-* http://local-server/api/employees
-* http://local-server/api/performance-reviews
-* http://local-server/api/timesheets
-* http://local-server/api/paychecks
+* http://your-server/api/employees
+* http://your-server/api/performance-reviews
+* http://your-server/api/timesheets
+* http://your-server/api/paychecks
 
 ## Install
 The initial development was done in Python 3.5 and there are only two dependencies. Pytest is not really required unless you want to run the tests.
@@ -83,12 +83,14 @@ Which just sets up some environment variables the code is looking for. To run th
 ```
 pytest
 ```
-There are different ways to structure a Flask project and many guides on best practices. This project was setup to be as easy as possible to deploy to Elastic Beanstalk.
+By default, your application is available at http://127.0.0.1:500.  
 
 ## Details
 The web server in this project is relatively simple and meant as a starting point for a more complicated or detailed use case. There is no authentication/authorization for requests or query string parameters for filtering or querying data. If these are required for your particular use case you would need to implement them.
 
 The "database" used in this project is a simple, object data store implemented in-memory (i.e., not persistent). It is designed to store resources by type and takes the liberty of assigning unique UUID's to all new resources. There is no further business logic implemented - you can POST the same resource over and over and they will be created successfully each with a new UUID. If you need more complicated logic or persistent storage you would need to implement that.
+
+There are different ways to structure a Flask project and many guides on best practices. This project was setup to be as easy as possible to deploy to Elastic Beanstalk.
 
 ## AWS Elastic Beanstalk
 A secondary goal of this project was to create something that could easily be deployed to AWS. Getting AWS setup and configured is outside the scope of this document, however it is not terribly difficult. The high level steps are:
@@ -111,23 +113,4 @@ However, you will need to update the variables in the script to match your setup
 
 Finally, everything is driven off the **APP_VERSION** variable. Every deploy you need to update that value. I recommend carefully examining the script to understand what it is doing and spend sometime looking around the Elastic Beanstalk AWS Console to get a feel for what is happening.
 
-
-note - used AWS CLI not the EB CLI
-Links to AWS doc here
-https://docs.aws.amazon.com/cli/latest/reference/elasticbeanstalk/index.html
-
-build assumes you have zip installed in your command line environment. link to zip
-
-deployment takes a couple minutes
-deployment is driven by the app version in the shell script
-
-where is the url?
-url is available in console
-
-add postman subscriptions
-update /root UI
-add logger?
-
-
-no business logic, can create multiple people with same name (they get different ids)
-possibly add a query param thing for searching
+The url for your Elastic Beanstalk application will be in the AWS Console and will look something *like* http://pythonapp-env.gy69m2vhf3.us-east-2.elasticbeanstalk.com/

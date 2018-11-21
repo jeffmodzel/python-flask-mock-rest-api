@@ -16,12 +16,12 @@ class InMemoryDatabase:
 
     def get_one(self,resource,id):
         if resource in self._datastore:
-            return next(filter(lambda x: x['id'] == id, self._datastore[resource]),None)
+            return next(filter(lambda x: x['_id'] == id, self._datastore[resource]),None)
         else:
             return None
 
     def add(self,resource,data):
-        data['id'] = str(uuid.uuid4())
+        data['_id'] = str(uuid.uuid4())
         if resource not in self._datastore:
             self._datastore[resource] = []
         self._datastore[resource].append(data)
@@ -30,13 +30,13 @@ class InMemoryDatabase:
     def remove(self,resource,id):
         x = self.get_one(resource,id)
         if x is not None:
-            self._datastore[resource] = list(filter(lambda x: x['id'] != id, self._datastore[resource]))
+            self._datastore[resource] = list(filter(lambda x: x['_id'] != id, self._datastore[resource]))
         return x
 
     def update(self,resource,id,data):
         x = self.get_one(resource,id)
         if x:
-            data['id'] = id
+            data['_id'] = id
             self.remove(resource,id)
             self._datastore[resource].append(data)
             return data
