@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% if name %}
+      <title>{{ app_name }}</title>
+    {% endif %}
+</head>
+<body>
+
+    {% if app_name %}
+      <h1>{{ app_name }}</h1>
+    {% else %}
+      <h1>Application name missing</h1>
+    {% endif %}
+
+    {% if app_version %}
+      <h2>Version {{ app_version }}</h2>
+    {% else %}
+      <h2>Application version missing</h2>
+    {% endif %}
+
+    <h2>Resource count: {{ resource_count }}</h2>
+
+    {# a comment #}
+</body>
+</html>

@@ -83,7 +83,7 @@ Which just sets up some environment variables the code is looking for. To run th
 ```
 pytest
 ```
-By default, your application is available at http://127.0.0.1:500.  
+By default, your application is available at http://127.0.0.1:5000  
 
 ## Details
 The web server in this project is relatively simple and meant as a starting point for a more complicated or detailed use case. There is no authentication/authorization for requests or query string parameters for filtering or querying data. If these are required for your particular use case you would need to implement them.

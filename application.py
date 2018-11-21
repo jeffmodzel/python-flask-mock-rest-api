@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 from datetime import datetime
 import os
 
@@ -14,8 +14,8 @@ application.register_blueprint(routes.bp)
 
 @application.route('/',methods=['GET'])
 def index():
-    print('hit the base url')
-    return 'Mock Rest API' + VERSION
+    resource_count = routes.db.status()['total_count']
+    return render_template('index.html', app_name=NAME, app_version=VERSION, resource_count=resource_count)
 
 @application.route('/health',methods=['GET'])
 def health():
