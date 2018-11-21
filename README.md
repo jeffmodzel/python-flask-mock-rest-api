@@ -86,7 +86,7 @@ pytest
 There are different ways to structure a Flask project and many guides on best practices. This project was setup to be as easy as possible to deploy to Elastic Beanstalk.
 
 ## Details
-The web server in this project is relatively simple and is meant as a starting point for a more complicated or detailed use case. There is no authorization for requests or query string parameters for filtering or querying data. If these are required for your particular use case you would need to implement them.
+The web server in this project is relatively simple and meant as a starting point for a more complicated or detailed use case. There is no authentication/authorization for requests or query string parameters for filtering or querying data. If these are required for your particular use case you would need to implement them.
 
 The "database" used in this project is a simple, object data store implemented in-memory (i.e., not persistent). It is designed to store resources by type and takes the liberty of assigning unique UUID's to all new resources. There is no further business logic implemented - you can POST the same resource over and over and they will be created successfully each with a new UUID. If you need more complicated logic or persistent storage you would need to implement that.
 
@@ -100,7 +100,17 @@ A secondary goal of this project was to create something that could easily be de
 
 The easiest way to get started is to create the initial Elastic Beanstalk application manually in the AWS console. Create a new application for the Python platform and select Sample application. This will help you verify everything is setup correctly. You can then use the deploy script to replace the sample application code. The terminology can get a little confusing but the basic concept is that there are is an Elastic Beanstalk *application* and an *environment*.  An *environment* is a combination of *version* and *configuration*. The deploy script creates a new *version* and updates the *environment* to use the new *version*. You can read all about it here [What is AWS Elastic Beanstalk](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/Welcome.html).
 
-## build and deploy helper scripts
+## Deploy script
+The deploy shell wraps up all the steps to zip up the code, send it to S3 and update the Elastic Beanstalk application. Big note here - the script uses the AWS CLI *not* the EB CLI.  The Elastic Beanstalk CLI is a different command line tool. Also, the zip command may not be available in your linux environment, in which case you need to install it.
+
+To run the deploy simply type:
+```
+.\deploy.sh
+```
+However, you will need to update the variables in the script to match your setup. When you first create your Elastic Beanstalk application it will create an *application* and *environment* as well as an S3 bucket.  You need to update those values in the script.
+
+Finally, everything is driven off the **APP_VERSION** variable. Every deploy you need to update that value. I recommend carefully examining the script to understand what it is doing and spend sometime looking around the Elastic Beanstalk AWS Console to get a feel for what is happening.
+
 
 note - used AWS CLI not the EB CLI
 Links to AWS doc here
