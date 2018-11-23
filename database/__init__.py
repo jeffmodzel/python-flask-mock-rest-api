@@ -31,6 +31,8 @@ class InMemoryDatabase:
         x = self.get_one(resource,id)
         if x is not None:
             self._datastore[resource] = list(filter(lambda x: x['_id'] != id, self._datastore[resource]))
+            if len(self._datastore[resource]) == 0:
+                del self._datastore[resource]
         return x
 
     def update(self,resource,id,data):
@@ -38,25 +40,17 @@ class InMemoryDatabase:
         if x:
             data['_id'] = id
             self.remove(resource,id)
+            if resource not in self._datastore:
+                self._datastore[resource] = []
             self._datastore[resource].append(data)
             return data
         else:
             return None
 
     def status(self):
-        total_count = 0
-        for k in self._datastore.keys():
-            total_count += len(self._datastore[k])
-        return {'total_count':total_count}
-
-#
-# Dev todo, ideas
-#
-# lowercase the resource names?
-# add prune() function to get rid of empty arrays
-# find_by_id(id)
-# delete_by_id(id)
-# delete all resource  delete('persons')
-# merge get_one + get_all (get)
-# _id and _resource_name _created_on _last_updated to objects?
-# add event notifcation?
+        total = 0
+        resources = []
+        for k, v in self._datastore.items():
+            total += len(v)
+            resources.append({'name':k, 'count': len(v)})
+        return {'total_resources_count': total, 'resources': resources}

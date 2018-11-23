@@ -8,7 +8,7 @@ BUCKET_NAME=elasticbeanstalk-us-east-1-134953076769
 AWS_S3_BUCKET=s3://$BUCKET_NAME
 AWS_ELASTIC_BEANSTALK_ENVIRONMENT=PythonTest2-env
 AWS_ELASTIC_BEANSTALK_APPLICATION=python-test2
-APP_VERSION=1.1.1
+APP_VERSION=1.2./d.0
 APP_NAME=python-flask-mock-rest-api
 APP_FILE=$APP_NAME$APP_VERSION.zip
 
@@ -21,7 +21,7 @@ echo App file: $APP_FILE
 
 # Build zip file
 # Remove files that aren't related to python application, keep our zip small
-zip -r $APP_FILE . -x *.git* *.sh *.zip *_pycache_* *.pytest_cache* *.json *.md postman/\*
+zip -r $APP_FILE . -x *.git* *.sh *.zip *_pycache_* *.pytest_cache* *.json *.md *.png postman/\*
 
 # Copy zip file to S3
 aws s3 cp $APP_FILE $AWS_S3_BUCKET

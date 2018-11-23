@@ -8,7 +8,6 @@ db = database.InMemoryDatabase()
 @bp.route('/api/<resource>', methods=['GET','POST'])
 @bp.route('/api/<resource>/<id>', methods=['GET','PUT','DELETE'])
 def api_resource_route(resource,id=None):
-    print(request)
     try:
         if request.method == 'GET':
             if id is None:

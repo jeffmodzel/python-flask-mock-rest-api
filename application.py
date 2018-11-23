@@ -14,22 +14,24 @@ application.register_blueprint(routes.bp)
 
 @application.route('/',methods=['GET'])
 def index():
-    resource_count = routes.db.status()['total_count']
-    return render_template('index.html', app_name=NAME, app_version=VERSION, resource_count=resource_count)
+    return render_template('index.html', health = get_health())
 
 @application.route('/health',methods=['GET'])
 def health():
     try:
-        delta = datetime.now() - SERVER_START
-        total_seconds = int(delta.total_seconds())
-        hours, remainder = divmod(total_seconds,60*60)
-        minutes, seconds = divmod(remainder,60)
-        uptime = '{} hrs {} mins {} secs'.format(hours,minutes,seconds)
-        data = {'name' : NAME,'version' : VERSION,'uptime' : uptime,'database' : routes.db.status()}
-        return jsonify(data)
+        return jsonify(get_health())
     except Exception as e:
         print(e)
         return 'Error',500
+
+def get_health():
+    delta = datetime.now() - SERVER_START
+    total_seconds = int(delta.total_seconds())
+    hours, remainder = divmod(total_seconds,60*60)
+    minutes, seconds = divmod(remainder,60)
+    uptime = '{} hrs {} mins {} secs'.format(hours,minutes,seconds)
+    database_status = routes.db.status()
+    return {'name': NAME, 'version': VERSION, 'uptime': uptime, 'database': database_status, 'status': 'pass'}
 
 if __name__ == "__main__":
     if RUN_LOCAL:

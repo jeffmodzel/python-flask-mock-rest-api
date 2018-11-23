@@ -1,12 +1,16 @@
 import database
 
-def test_database():
+def test_initialization():
     db = database.InMemoryDatabase()
-    data = db.get_all('missing_resource')
-    assert data is None
+
     data = db.get_all(None)
     assert data is None
-    assert db.status()['total_count'] == 0
+
+    data = db.get_all('missing_resource')
+    assert data is None
+
+    assert db.status()['total_resources_count'] == 0
+    assert len(db.status()['resources']) == 0
 
 def test_basic_crud():
     db = database.InMemoryDatabase()
@@ -78,15 +82,59 @@ def test_load():
 
     db = database.InMemoryDatabase()
 
+    # add resources
     for i in range(number_of_resources_to_create):
         x = db.add('dog', {'name' : 'Stella' + str(i)})
         assert x is not None
+        assert db.status()['total_resources_count'] == i + 1
+        assert len(db.status()['resources']) == 1
+        z = list(filter(lambda x: x['name'] == 'dog', db.status()['resources']))
+        assert z[0]['count'] == i + 1
         ids_to_delete.append(x['_id'])
 
-    assert db.status()['total_count'] == number_of_resources_to_create
+    assert db.status()['total_resources_count'] == number_of_resources_to_create
+    assert len(db.status()['resources']) == 1
+    z = list(filter(lambda x: x['name'] == 'dog', db.status()['resources']))
+    assert z[0]['count'] == number_of_resources_to_create
 
+    # remove resources
+    expected_resource_count = number_of_resources_to_create
     for id in ids_to_delete:
         x = db.remove('dog',id)
         assert x is not None
+        expected_resource_count -= 1
+        assert db.status()['total_resources_count'] == expected_resource_count
+        if expected_resource_count > 0:
+            z = list(filter(lambda x: x['name'] == 'dog', db.status()['resources']))
+            assert z[0]['count'] == expected_resource_count
 
-    assert db.status()['total_count'] == 0
+    assert db.status()['total_resources_count'] == 0
+    assert len(db.status()['resources']) == 0
+
+def test_database_status():
+    db = database.InMemoryDatabase()
+
+    assert db.status()['total_resources_count'] == 0
+    assert len(db.status()['resources']) == 0
+
+    dog = {'resource':'dog'}
+    cat = {'resource':'cat'}
+    weasel = {'resource':'weasel'}
+
+    db.add('dog',dog)
+    db.add('dog',dog)
+    db.add('dog',dog)
+    db.add('cat',cat)
+    db.add('cat',cat)
+    db.add('weasel',weasel)
+
+    assert db.status()['total_resources_count'] == 6
+    assert len(db.status()['resources']) == 3
+
+    resources = db.status()['resources']
+    x = list(filter(lambda x: x['name'] == 'dog', resources))
+    assert x[0]['count'] == 3
+    x = list(filter(lambda x: x['name'] == 'cat', resources))
+    assert x[0]['count'] == 2
+    x = list(filter(lambda x: x['name'] == 'weasel', resources))
+    assert x[0]['count'] == 1

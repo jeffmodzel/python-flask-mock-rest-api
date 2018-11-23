@@ -4,23 +4,101 @@
     {% if name %}
       <title>{{ app_name }}</title>
     {% endif %}
+
+    <link href='//fonts.googleapis.com/css?family=Raleway:400,300,600' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="static/normalize.css">
+    <link rel="stylesheet" href="static/skeleton.css">
+
 </head>
 <body>
 
-    {% if app_name %}
-      <h1>{{ app_name }}</h1>
-    {% else %}
-      <h1>Application name missing</h1>
+    <br/>
+    <div class="container">
+      <h1><b>{{ health.name }}</b></h1>
+      <hr>
+      <h2>Version: {{ health.version }}</h2>
+      <h2>Uptime: {{ health.uptime }}</h2>
+      <h2>Total resources count: {{ health.database.total_resources_count }}</h2>
+      <hr/>
+    </div>
+
+    {% if health.database.resources|length > 0 %}
+    <div class="container">
+    <h1><b>Resources</b></h1>
+    <table class="u-full-width">
+      <thead>
+        <tr>
+          <th>Resource</th>
+          <th>Count</th>
+        </tr>
+      </thead>
+
+      {% for item in health.database.resources|sort(attribute='name') %}
+      <tr>
+        <td>{{ item.name }}</td>
+        <td>{{ item.count }}</td>
+      </tr>
+      {% endfor %}
+
+    </table>
+    </div>
     {% endif %}
 
-    {% if app_version %}
-      <h2>Version {{ app_version }}</h2>
-    {% else %}
-      <h2>Application version missing</h2>
-    {% endif %}
+    <br/>
+    <div class="container">
+      <h1><b>Available Endpoints</b></h1>
 
-    <h2>Resource count: {{ resource_count }}</h2>
+      <table class="u-full-width">
+        <thead>
+          <tr>
+            <th>Endpoint</th>
+            <th>Method</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>/</td>
+            <td>GET</td>
+            <td>Basic homepage with health status (the page you are on right now)</td>
+          </tr>
+          <tr>
+            <td>/health</td>
+            <td>GET</td>
+            <td>Application health status</td>
+          </tr>
+          <tr>
+            <td>/api/{resource}</td>
+            <td>GET</td>
+            <td>Returns all of the resources for the specified type</td>
+          </tr>
+          <tr>
+            <td>/api/{resource}/{id}</td>
+            <td>GET</td>
+            <td>Returns the specified resource</td>
+          </tr>
+          <tr>
+            <td>/api/{resource}</td>
+            <td>POST</td>
+            <td>Create a resource of the specified type</td>
+          </tr>
+          <tr>
+            <td>/api/{resource}/{id}</td>
+            <td>PUT</td>
+            <td>Update the specified resource</td>
+          </tr>
+          <tr>
+            <td>/api/{resource}/{id}</td>
+            <td>DELETE</td>
+            <td>Delete the specified resource</td>
+          </tr>
+  </tbody>
+</table>
 
-    {# a comment #}
+    </div>
+
+    <br/>
+    <div class="container"><a href="https://github.com/jeffmodzel/python-flask-mock-rest-api">Source on Github.com<a/></div>
+    <br/>
 </body>
 </html>

@@ -7,12 +7,17 @@ If you're looking for a simple Flask / Elastic Beanstalk example check out [eb-p
 
 Exposes a REST endpoint in the form of **api/{resource}** that accepts GET/POST/PUT/DEL and allows dynamic creation of resources. The REST endpoints available are:
 
-* GET api/{resource}
-* GET api/{resource}/{id}
-* POST api/{resource}
-* PUT api/{resource}/{id}
-* DEL api/{resource}/{id}
-* GET /health
+|Endpoint|Method|Description|
+|--------|------|-----------|
+|/|GET|Basic homepage with health status information|
+|/health|GET|Application health status|
+|api/{resource}|GET|Returns all of the resources for the specified type|
+|api/{resource}/{id}|GET|Returns the specified resource|
+|api/{resource}|POST|Create a resource of the specified type|
+|api/{resource}/{id}|PUT|Update the specified resource|
+|api/{resource}/{id}|DEL|Delete the specified resource|
+
+All operations - GET/POST/PUT/DEL - on a resource echo back the resource in the response, not just GET. The expected data format is JSON.
 
 For example if you wanted to create a person resource, you would call:
 ```
@@ -36,7 +41,6 @@ Or remove the resource like:
  Returns 200
  {"first_name": "Darth", "last_name": "Vader", "_id" : "9a02bcdc-439f-4726-9d80-8e15979ead18"}
 ```
-All operations GET/POST/PUT/DEL on a resource echo back the resource in the response, not just GETs.
 
 Included in this project is a Postman collection and environment with example usage. Postman is an API Development and Testing tool - https://www.getpostman.com/
 
@@ -85,10 +89,16 @@ pytest
 ```
 By default, your application is available at http://127.0.0.1:5000  
 
+![](screen.png)
+
 ## Details
 The web server in this project is relatively simple and meant as a starting point for a more complicated or detailed use case. There is no authentication/authorization for requests or query string parameters for filtering or querying data. If these are required for your particular use case you would need to implement them.
 
 The "database" used in this project is a simple, object data store implemented in-memory (i.e., not persistent). It is designed to store resources by type and takes the liberty of assigning unique UUID's to all new resources. There is no further business logic implemented - you can POST the same resource over and over and they will be created successfully each with a new UUID. If you need more complicated logic or persistent storage you would need to implement that.
+
+Since the database is implemented in-memory with simple python dicts and lists, its performance will be directly related to the amount of memory and processing power available. At large numbers of resources (talking millions here) it is not particularly performant.
+
+The homepage available at the root endpoint is a basic Flask template that displays the health status information. The stylesheet is from [Skeleton](http://getskeleton.com/).
 
 There are different ways to structure a Flask project and many guides on best practices. This project was setup to be as easy as possible to deploy to Elastic Beanstalk.
 
