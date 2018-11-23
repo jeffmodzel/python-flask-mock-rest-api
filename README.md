@@ -5,7 +5,7 @@ If you're looking for a simple Flask / Elastic Beanstalk example check out [eb-p
 
 ## Overview
 
-Exposes a REST endpoint in the form of **api/{resource}** that accepts GET/POST/PUT/DEL and allows dynamic creation of resources. The REST endpoints available are:
+Exposes a REST endpoint in the form of **api/{resource}** that accepts GET/POST/PUT/DELETE and allows dynamic creation of resources. The REST endpoints available are:
 
 |Endpoint|Method|Description|
 |--------|------|-----------|
@@ -15,9 +15,9 @@ Exposes a REST endpoint in the form of **api/{resource}** that accepts GET/POST/
 |api/{resource}/{id}|GET|Returns the specified resource|
 |api/{resource}|POST|Create a resource of the specified type|
 |api/{resource}/{id}|PUT|Update the specified resource|
-|api/{resource}/{id}|DEL|Delete the specified resource|
+|api/{resource}/{id}|DELETE|Delete the specified resource|
 
-All operations - GET/POST/PUT/DEL - on a resource echo back the resource in the response, not just GET. The expected data format is JSON.
+All operations - GET/POST/PUT/DELETE - on a resource echo back the resource in the response, not just GET. The expected data format is JSON.
 
 For example if you wanted to create a person resource, you would call:
 ```
@@ -81,7 +81,7 @@ To run locally, execute the *run_local.sh* script:
 export RUN_LOCAL=True
 export APP_VERSION=1.0.0
 export APP_NAME=python-flask-mock-rest-api
-python3 application.p
+python3 application.py
 ```
 Which just sets up some environment variables the code is looking for. To run the unit tests simply run:
 ```
