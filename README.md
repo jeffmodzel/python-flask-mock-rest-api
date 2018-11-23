@@ -96,7 +96,7 @@ The web server in this project is relatively simple and meant as a starting poin
 
 The "database" used in this project is a simple, object data store implemented in-memory (i.e., not persistent). It is designed to store resources by type and takes the liberty of assigning unique UUID's to all new resources. There is no further business logic implemented - you can POST the same resource over and over and they will be created successfully each with a new UUID. If you need more complicated logic or persistent storage you would need to implement that.
 
-Since the database is implemented in-memory with simple python dicts and lists, its performance will be directly related to the amount of memory and processing power available. At large numbers of resources (talking millions here) it is not particularly performant.
+Since the database is implemented in-memory with simple python dicts and lists, its performance will be directly related to the amount of memory and processing power available. At large numbers of resources (talking millions here) it is not particularly performant, especially deletes.
 
 The homepage available at the root endpoint is a basic Flask template that displays the health status information. The stylesheet is from [Skeleton](http://getskeleton.com/).
 
@@ -123,4 +123,4 @@ However, you will need to update the variables in the script to match your setup
 
 Finally, everything is driven off the **APP_VERSION** variable. Every deploy you need to update that value. I recommend carefully examining the script to understand what it is doing and spend sometime looking around the Elastic Beanstalk AWS Console to get a feel for what is happening.
 
-The url for your Elastic Beanstalk application will be in the AWS Console and will look something *like* http://pythonapp-env.gy69m2vhf3.us-east-2.elasticbeanstalk.com/
+The url for your Elastic Beanstalk application will be in the AWS Console and look something *like* http://pythonapp-env.gy69m2vhf3.us-east-2.elasticbeanstalk.com/.
